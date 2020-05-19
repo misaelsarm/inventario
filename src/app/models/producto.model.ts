@@ -13,5 +13,6 @@ export class Producto {
         this.category = category;
         this.barcode = barcode;
         this.created = new Date();
+
     }
 }
