@@ -8,35 +8,45 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'scan',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../scan/scan.module').then(m => m.ScanPageModule)
           }
         ]
       },
       {
-        path: 'tab2',
+        path: 'recientes',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../recientes/recientes.module').then(m => m.RecientesPageModule)
+          }
+        ]
+      },
+      {
+        path: 'inventario',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../inventario/inventario.module').then(m => m.InventarioPageModule)
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/scan',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/scan',
     pathMatch: 'full'
   }
 ];

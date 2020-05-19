@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "inventario-4d67d": {
+      "hosting": {
+        "app": [
+          "inventario-4d67d"
+        ]
+      }
+    }
+  }
+}

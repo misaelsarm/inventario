@@ -1,4 +1,4 @@
-export class Registro {
+export class Producto {
     public format: string;
     public name: string;
     public brand: string;
