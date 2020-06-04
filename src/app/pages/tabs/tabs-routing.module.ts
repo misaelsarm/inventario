@@ -38,6 +38,26 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'proveedores',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../proveedores/proveedores.module').then(m => m.ProveedoresPageModule)
+          }
+        ]
+      },
+      {
+        path: 'perfil',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/scan',
         pathMatch: 'full'

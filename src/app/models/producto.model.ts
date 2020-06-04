@@ -4,7 +4,7 @@ export class Producto {
     public brand: string;
     public category: string;
     public barcode: string;
-    public created: Date;
+    public created: string;
 
     constructor(format: string, name: string, brand: string, category: string, barcode: string) {
         this.format = format;
@@ -12,7 +12,5 @@ export class Producto {
         this.brand = brand;
         this.category = category;
         this.barcode = barcode;
-        this.created = new Date();
-
     }
 }

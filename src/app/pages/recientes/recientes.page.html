@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border" [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="danger">
     <ion-title>
       Recientes
     </ion-title>
@@ -8,12 +8,12 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item detail *ngFor="let registro of qrData.productos" (click)="abrirRegistro(registro)">
+    <ion-item detail *ngFor="let producto of recientes" (click)="abrirRegistro(producto)">
       <ion-icon color="primary" slot="start" name="time-outline">
       </ion-icon>
       <ion-label>
-        <h2>{{registro.name}}</h2>
-        <p>{{registro.created}}</p>
+        <h2>{{producto.name}}</h2>
+        <p>{{producto.created }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

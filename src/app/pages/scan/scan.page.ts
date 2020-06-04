@@ -31,13 +31,13 @@ export class ScanPage {
       }
     }).catch(err => {
       console.log(err);
-      /* this.qrDataService.obtenerDatos('QR', { name: 'Test name', brand: 'Test brand', category: 'Test category', barcode: '0101010110' });
+      /* this.qrDataService.obtenerDatosQR('QR', { name: 'Test name', brand: 'Test brand', category: 'Test category', barcode: '0101010110' });
       console.log('Guardado!');
       this.presentAlertPrompt('QR', { name: 'Test name', brand: 'Test brand', category: 'Test category', barcode: '0101010110' }); */
     });
   }
 
-  async presentAlertPrompt(format, data) {
+  async presentAlertPrompt(format: string, data) {
     const alert = await this.alertController.create({
       header: 'Registro de nuevo producto',
       inputs: [
@@ -77,13 +77,14 @@ export class ScanPage {
         }, {
           text: 'Ok',
           handler: (value) => {
+            const date = new Date();
             const registro: Producto = {
               format,
               name: value.name,
               category: value.category,
               brand: value.brand,
               barcode: value.barcode,
-              created: new Date()
+              created: `${date.toDateString()} - ${date.toLocaleTimeString()}`
             };
             this.itemService.addItem(registro);
             this.presentAlert();
