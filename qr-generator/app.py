@@ -1,15 +1,19 @@
 import pyqrcode
 import pandas as pd
 
+
 def createQRCode():
-    df = pd.read_csv("data.csv")
+    df = pd.read_csv("data.csv", engine='python')
     for index, values in df.iterrows():
-        brand = values["Brand"]
-        name = values["Name"]
-        category = values["Category"]
-        barcode = values["Barcode"]
-        data = "{{\"name\":\"{}\", \"barcode\":\"{}\", \"category\":\"{}\", \"brand\":\"{}\"}}".format(name, barcode,category,brand)
+        nombre = values["Nombre"]
+        descripcion = values["Descripcion"]
+        marca = values["Marca"]
+        precio = values["Precio"]
+        data = "{{\"nombre\":\"{}\", \"descripcion\":\"{}\", \"marca\":\"{}\", \"precio\":\"{}\"}}".format(
+            nombre, descripcion, marca, precio)
         print(data)
         image = pyqrcode.create(data)
-        image.svg(f"{name}_{barcode}.svg", scale="5")
+        image.svg(f"{nombre}_{marca}_{precio}.svg", scale="5")
+
+
 createQRCode()

@@ -1,16 +1,17 @@
 export class Producto {
-    public format: string;
-    public name: string;
-    public brand: string;
-    public category: string;
-    public barcode: string;
-    public created: string;
+    format?: string;
+    nombre: string;
+    descripcion: string;
+    marca: string;
+    precio: number;
+    created?: string;
+    imagenUrl: string;
 
-    constructor(format: string, name: string, brand: string, category: string, barcode: string) {
+    /* constructor(format: string, nombre: string, descripcion: string, precio: number, marca: string) {
         this.format = format;
-        this.name = name;
-        this.brand = brand;
-        this.category = category;
-        this.barcode = barcode;
-    }
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.precio = precio;
+    } */
 }

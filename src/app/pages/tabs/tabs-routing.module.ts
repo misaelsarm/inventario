@@ -18,6 +18,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'inicio',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../inicio/inicio.module').then(m => m.InicioPageModule)
+          }
+        ]
+      },
+      {
         path: 'recientes',
         children: [
           {
@@ -38,22 +48,22 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'proveedores',
+        path: 'usuarios',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../proveedores/proveedores.module').then(m => m.ProveedoresPageModule)
+              import('../usuarios/usuarios.module').then(m => m.UsuariosPageModule)
           }
         ]
       },
       {
-        path: 'perfil',
+        path: 'pedidos',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+              import('../pedidos/pedidos.module').then(m => m.PedidosPageModule)
           }
         ]
       },

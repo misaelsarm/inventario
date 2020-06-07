@@ -1,0 +1,18 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="danger">
+    <ion-title>Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+  <div class="content">
+    <div class="usuario" *ngFor="let usuario of usuarios">
+      <p><b>Nombre:</b> {{usuario.nombreCompleto}}</p>
+      <p><b>Email:</b> {{usuario.email}}</p>
+      <p><b>Tipo de usuario:</b> {{usuario.tipoUsuario}}</p>
+      <p><b>Fecha de registro:</b> {{usuario.fechaRegistro}}</p>
+      <p><b>Hora de registro:</b> {{usuario.horaRegistro}}</p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,28 @@
+<div class="content">
+  <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+    <h2>
+      Iniciar sesion
+    </h2>
+    <div>
+      <label>Correo</label>
+      <br>
+      <input [(ngModel)]="usuario.email" required email type="email" name="email">
+      <span *ngIf="loginForm.submitted && loginForm.controls.email.errors" style="color: red;">El campo no puede estar
+        vacio</span>
+      <!-- <span *ngIf="loginForm.submitted && loginForm.controls.email.errors.email" style="color: red;">Ingresa un correo valido</span> -->
+    </div>
+    <div>
+      <label>Contraseña</label>
+      <br>
+      <input [(ngModel)]="usuario.password" minlength="6" required type="password" name="password">
+      <span *ngIf="loginForm.submitted && loginForm.controls.password.errors" style="color: red;">Minimo 6
+        caracteres</span>
+    </div>
+    <ion-button type="submit">Iniciar sesion</ion-button>
+    <br>
+    <a routerLink="/registro">¿No tienes cuenta? Registrate ahora</a>
+  </form>
+</div>
+
+<div class="top">
+</div>

@@ -7,9 +7,14 @@ import { Producto } from '../models/producto.model';
 export class QrDataService {
 
   productos = [];
+  producto = new Producto();
   constructor() { }
 
-  obtenerDatosQR(format: string, data) {
-    const nuevoProdcuto = new Producto(format, data.name, data.brand, data.category, data.barcode);
+  obtenerDatosQR(format: string, producto: Producto) {
+    this.producto.nombre = producto.nombre;
+    this.producto.descripcion = producto.descripcion;
+    this.producto.precio = producto.precio;
+    this.producto.marca = producto.marca;
+    this.producto.imagenUrl = producto.imagenUrl;
   }
 }

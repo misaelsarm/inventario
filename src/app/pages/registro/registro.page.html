@@ -1,0 +1,41 @@
+<div class="content">
+  <form #signUpForm="ngForm" (ngSubmit)="registro(signUpForm)">
+    <h2>
+      Registro
+    </h2>
+    <div>
+      <label>Nombre(s)</label>
+      <br>
+      <input required [(ngModel)]="usuario.nombre" type="text" name="nombre">
+      <span *ngIf="signUpForm.submitted && signUpForm.controls.nombre.errors" style="color: red;">El campo no puede estar
+        vacio</span>
+    </div>
+    <div>
+      <label>Apellidos(s)</label>
+      <br>
+      <input required [(ngModel)]="usuario.apellido" type="text" name="apellidos">
+      <span *ngIf="signUpForm.submitted && signUpForm.controls.apellidos.errors" style="color: red;">El campo no puede estar
+        vacio</span>
+    </div>
+    <div>
+      <label>Correo</label>
+      <br>
+      <input email required [(ngModel)]="usuario.email" type="email" name="correo">
+      <span *ngIf="signUpForm.submitted && signUpForm.controls.correo.errors" style="color: red;">El campo no puede estar
+        vacio</span>
+    </div>
+    <div>
+      <label>Contraseña</label>
+      <br>
+      <input minlength="6" required [(ngModel)]="usuario.password" type="password" name="password">
+      <span *ngIf="signUpForm.submitted && signUpForm.controls.password.errors" style="color: red;">Minimo 6
+        caracteres</span>
+    </div>
+    <ion-button type="submit">Registrarse</ion-button>
+    <br>
+    <a routerLink="/login">¿Ya tienes cuenta? Inicia sesion</a>
+  </form>
+</div>
+
+<div class="top">
+</div>

@@ -3,7 +3,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { QrDataService } from 'src/app/services/qr-data.service';
 import { AlertController } from '@ionic/angular';
 import { Producto } from 'src/app/models/producto.model';
-import { ItemService } from 'src/app/services/item.service';
+import { InventarioService } from 'src/app/services/inventario.service';
 
 @Component({
   selector: 'app-scan',
@@ -15,9 +15,9 @@ export class ScanPage {
   swipeOptions = {
     allowSlidePrev: false,
     allowSlideNext: false
-  }
+  };
   constructor(
-    private itemService: ItemService,
+    private inventarioService: InventarioService,
     private barcodeScanner: BarcodeScanner,
     private qrDataService: QrDataService,
     private alertController: AlertController
@@ -31,39 +31,52 @@ export class ScanPage {
       }
     }).catch(err => {
       console.log(err);
-      /* this.qrDataService.obtenerDatosQR('QR', { name: 'Test name', brand: 'Test brand', category: 'Test category', barcode: '0101010110' });
+      const datos = {
+        nombre: 'Martillo',
+        descripcion: `Lorem Ipsum is simply dummy text of the printing`,
+        precio: 129,
+        marca: 'Truper',
+        imagenUrl: ''
+      };
+      this.qrDataService.obtenerDatosQR('QR', datos);
       console.log('Guardado!');
-      this.presentAlertPrompt('QR', { name: 'Test name', brand: 'Test brand', category: 'Test category', barcode: '0101010110' }); */
+      this.presentAlertPrompt('QR', datos);
     });
   }
 
-  async presentAlertPrompt(format: string, data) {
+  async presentAlertPrompt(format: string, producto: Producto) {
     const alert = await this.alertController.create({
       header: 'Registro de nuevo producto',
       inputs: [
         {
-          name: 'name',
+          name: 'nombre',
           type: 'text',
           placeholder: 'Nombre del producto',
-          value: data.name
+          value: producto.nombre
         },
         {
-          name: 'category',
+          name: 'descripcion',
           type: 'text',
-          placeholder: 'Categoria del producto',
-          value: data.category
+          placeholder: 'Descripcion del producto',
+          value: producto.descripcion
         },
         {
-          name: 'brand',
+          name: 'precio',
+          type: 'text',
+          placeholder: 'Precio del producto',
+          value: producto.precio
+        },
+        {
+          name: 'marca',
           type: 'text',
           placeholder: 'Marca del producto',
-          value: data.brand
+          value: producto.marca
         },
         {
-          name: 'barcode',
+          name: 'imagenUrl',
           type: 'text',
-          placeholder: 'Codigo del producto',
-          value: data.barcode
+          placeholder: 'URL de imagen a mostrar',
+          value: producto.imagenUrl
         }
       ],
       buttons: [
@@ -76,17 +89,18 @@ export class ScanPage {
           }
         }, {
           text: 'Ok',
-          handler: (value) => {
+          handler: (producto: Producto) => {
             const date = new Date();
             const registro: Producto = {
               format,
-              name: value.name,
-              category: value.category,
-              brand: value.brand,
-              barcode: value.barcode,
+              nombre: producto.nombre,
+              descripcion: producto.descripcion,
+              precio: producto.precio,
+              marca: producto.marca,
+              imagenUrl: producto.imagenUrl,
               created: `${date.toDateString()} - ${date.toLocaleTimeString()}`
             };
-            this.itemService.addItem(registro);
+            this.inventarioService.agregarProducto(registro);
             this.presentAlert();
           }
         }

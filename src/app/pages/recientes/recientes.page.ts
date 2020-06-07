@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { QrDataService } from 'src/app/services/qr-data.service';
 import { Producto } from 'src/app/models/producto.model';
-import { ItemService } from 'src/app/services/item.service';
+import { InventarioService } from 'src/app/services/inventario.service';
 
 @Component({
   selector: 'app-recientes',
@@ -12,8 +12,8 @@ export class RecientesPage {
 
   recientes = []
 
-  constructor(public qrData: QrDataService, private itemService: ItemService) {
-    this.itemService.getItems().subscribe(recientes => {
+  constructor(public qrData: QrDataService, private inventarioService: InventarioService) {
+    this.inventarioService.obtenerProductos().subscribe(recientes => {
       this.recientes = recientes;
     });
   }
