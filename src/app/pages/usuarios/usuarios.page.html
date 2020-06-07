@@ -1,11 +1,7 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="danger">
-    <ion-title>Usuarios</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [titulo]="titulo"></app-header>
 
 <ion-content>
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar animated placeholder="Buscar producto" [(ngModel)]="listFilter"></ion-searchbar>
   <div class="content">
     <div class="usuario" *ngFor="let usuario of usuarios">
       <p><b>Nombre:</b> {{usuario.nombreCompleto}}</p>

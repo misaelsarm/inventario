@@ -1,9 +1,49 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>pedidos</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [titulo]="titulo"></app-header>
 
 <ion-content>
-
+    <ion-searchbar animated [(ngModel)]="listFilter" placeholder="Buscar pedido"></ion-searchbar>
+    <div class="content">
+        <div class="pedido" *ngFor="let pedido of pedidos">
+            <div>
+                <div>
+                    <h3>Numero de pedido: {{pedido.id}}</h3>
+                    <p>Nombre de cliente: {{pedido.nombreCliente}}</p>
+                    <p>Fecha de pedido: {{pedido.diaPedido}}</p>
+                    <p>Hora de pedido: {{pedido.horaPedido}}</p>
+                </div>
+                <div>
+                    <h4>Estado: {{pedido.status}}
+                        <ion-icon class="icon pendiente" *ngIf="pedido.status === 'Pendiente'" name="time-outline">
+                        </ion-icon>
+                        <ion-icon class="icon entregado" *ngIf="pedido.status === 'Entregado'" name="checkmark-outline">
+                        </ion-icon>
+                        <ion-icon class="icon cancelado" *ngIf="pedido.status === 'Cancelado'" name="close-outline">
+                        </ion-icon>
+                    </h4>
+                    <h4>Total: {{pedido.total | currency}}</h4>
+                </div>
+            </div>
+            <div>
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex">
+                        <h3>Productos pedidos</h3>
+                        <div *ngIf="!pedido.productos" style="margin-left: 30px;" class="spinner-border text-primary"
+                            role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <ul *ngFor="let producto of pedido.productos">
+                    <li> {{producto.nombre}}</li>
+                </ul>
+                <div>
+                    <ion-button color="success" (click)="confirmar(pedido)" *ngIf="pedido.status === 'Pendiente'"
+                        class="btn btn-success mr-4">Confirmar entrega de
+                        pedido</ion-button>
+                    <ion-button color="danger" (click)="cancelarPedido(pedido)" *ngIf="pedido.status === 'Pendiente'"
+                        class="btn btn-danger">Cancelar pedido</ion-button>
+                </div>
+            </div>
+        </div>
+    </div>
 </ion-content>

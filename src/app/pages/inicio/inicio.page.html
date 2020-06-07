@@ -1,12 +1,44 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="danger">
-    <ion-buttons slot="start">
-      <ion-menu-button menu="perfil"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [titulo]="titulo"></app-header>
 
 <ion-content>
-
+    <ion-grid>
+        <ion-row>
+            <ion-col size=6>
+                <div class="overview pedidos">
+                    <h2>
+                        Pedidos
+                    </h2>
+                    <h2>{{pedidos.length}}</h2>
+                </div>
+            </ion-col>
+            <ion-col size=6>
+                <div class="overview productos">
+                    <h2>
+                        Productos
+                    </h2>
+                    <h2>{{productos.length}}</h2>
+                </div>
+            </ion-col>
+            <ion-col size=6>
+                <div class="overview clientes">
+                    <h2>
+                        Clientes
+                    </h2>
+                    <h2>
+                        {{clientes.length}}
+                    </h2>
+                </div>
+            </ion-col>
+            <ion-col size=6>
+                <div class="overview admins">
+                    <h2>
+                        Admins
+                    </h2>
+                    <h2>
+                        {{admins.length}}
+                    </h2>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

@@ -28,4 +28,8 @@ export class AuthService {
     const cred = await this.firebaseAuth.createUserWithEmailAndPassword(authData.email, authData.password);
     return cred;
   }
+
+  currentUser() {
+    return this.firebaseAuth.user;
+  }
 }

@@ -10,16 +10,38 @@ import { InventarioService } from 'src/app/services/inventario.service';
 })
 export class UsuariosPage implements OnInit {
 
-  usuarios = []
+  titulo = 'Usuarios';
+
+  usuarios = [];
+  resultados = [];
+
+  _listFilter: string;
+  uid: string;
+
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.usuarios = this.listFilter ? this.buscar(this.listFilter) : this.resultados;
+  }
 
   constructor(private inventarioService: InventarioService) { }
 
   ngOnInit() {
     this.inventarioService.obtenerUsuarios().subscribe((usuarios) => {
-      this.usuarios = usuarios;
+      this.resultados = usuarios;
+      this.usuarios = this.resultados;
       console.log(this.usuarios);
     })
 
+  }
+
+  buscar(elementoBuscado: string) {
+    elementoBuscado = elementoBuscado.toLowerCase();
+    return this.resultados.filter((usuario) =>
+      usuario.nombreCompleto.toLowerCase().indexOf(elementoBuscado) !== -1);
   }
 
 }

@@ -16,9 +16,13 @@ export class InventarioService {
   usuariosCollection: AngularFirestoreCollection<Usuario>;
   usuarios: Observable<any>;
 
+  pedidosCollection: AngularFirestoreCollection<any>;
+  pedidos: Observable<any>;
+
   constructor(private firestore: AngularFirestore) {
     this.getProductsCollection();
     this.getUsersCollection();
+    this.getOrdersCollection();
   }
 
   obtenerProductos() {
@@ -27,6 +31,10 @@ export class InventarioService {
 
   obtenerUsuarios() {
     return this.usuarios;
+  }
+
+  obtenerPedidos() {
+    return this.pedidos;
   }
 
   agregarProducto(producto: Producto) {
@@ -47,6 +55,17 @@ export class InventarioService {
   getUsersCollection() {
     this.usuariosCollection = this.firestore.collection('Users');
     this.usuarios = this.usuariosCollection.snapshotChanges().pipe((map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as any;
+        data.id = a.payload.doc.id;
+        return data;
+      });
+    })));
+  }
+
+  getOrdersCollection() {
+    this.pedidosCollection = this.firestore.collection('Pedidos');
+    this.pedidos = this.pedidosCollection.snapshotChanges().pipe((map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data() as any;
         data.id = a.payload.doc.id;

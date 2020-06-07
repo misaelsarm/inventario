@@ -11,9 +11,22 @@ import { Producto } from 'src/app/models/producto.model';
 })
 export class InventarioPage implements OnInit {
 
-  productos: Producto[] = [];
+  titulo = 'Inventario';
 
-  producto = 'hola'
+  productos: Producto[] = [];
+  resultados = []
+
+  _listFilter: string;
+  uid: string;
+
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.productos = this.listFilter ? this.buscar(this.listFilter) : this.resultados;
+  }
 
   constructor(
     public qrDataService: QrDataService,
@@ -23,13 +36,20 @@ export class InventarioPage implements OnInit {
 
   ngOnInit() {
     this.inventarioService.obtenerProductos().subscribe(productos => {
-      this.productos = productos;
+      this.resultados = productos
+      this.productos = this.resultados;
       console.log(this.productos);
     });
   }
 
   verProducto(producto) {
     this.presentAlertPrompt(producto);
+  }
+
+  buscar(elementoBuscado: string) {
+    elementoBuscado = elementoBuscado.toLowerCase();
+    return this.resultados.filter((producto) =>
+      producto.nombre.toLowerCase().indexOf(elementoBuscado) !== -1);
   }
 
   async presentAlertPrompt(producto: Producto) {

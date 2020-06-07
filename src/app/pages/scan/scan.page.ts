@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { QrDataService } from 'src/app/services/qr-data.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/models/producto.model';
 import { InventarioService } from 'src/app/services/inventario.service';
 
@@ -20,7 +20,8 @@ export class ScanPage {
     private inventarioService: InventarioService,
     private barcodeScanner: BarcodeScanner,
     private qrDataService: QrDataService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) { }
   scan() {
     this.barcodeScanner.scan().then(barcodeData => {
@@ -101,7 +102,7 @@ export class ScanPage {
               created: `${date.toDateString()} - ${date.toLocaleTimeString()}`
             };
             this.inventarioService.agregarProducto(registro);
-            this.presentAlert();
+            this.presentToastWithOptions();
           }
         }
       ]
@@ -110,7 +111,7 @@ export class ScanPage {
     await alert.present();
   }
 
-  async presentAlert() {
+  /* async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Listo',
       message: 'Se registro un nuevo producto con exito.',
@@ -118,5 +119,23 @@ export class ScanPage {
     });
 
     await alert.present();
+  } */
+
+  async presentToastWithOptions() {
+
+    const toast = await this.toastController.create({
+      header: 'Inventario',
+      message: 'Producto agregado con exito',
+      position: 'bottom',
+      duration: 4000,
+      color: 'success',
+      buttons: [
+        {
+          side: 'start',
+          icon: 'checkmark-outline',
+        }
+      ]
+    });
+    toast.present();
   }
 }

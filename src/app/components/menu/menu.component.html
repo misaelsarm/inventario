@@ -1,16 +1,21 @@
 <ion-menu side="start" menuId="perfil" contentId="main">
   <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="danger">
       <ion-title>Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-    </ion-list>
+    <ion-item>
+      <h2>{{usuarioActual}}</h2>
+    </ion-item>
+    <ion-item>
+      <p>{{email}}</p>
+    </ion-item>
+    <ion-item>
+      <p>{{tipoUsuario}}</p>
+    </ion-item>
   </ion-content>
+  <ion-footer>
+    <ion-item (click)="logOut()">Cerrar sesion</ion-item>
+  </ion-footer>
 </ion-menu>
