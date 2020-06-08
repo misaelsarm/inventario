@@ -22,7 +22,6 @@ export class InicioPage implements OnInit {
 
     this.inventarioService.obtenerPedidos().subscribe((pedidos) => {
       this.pedidos = pedidos;
-      console.log(this.pedidos);
     });
 
     this.inventarioService.obtenerUsuarios().subscribe((usuarios) => {

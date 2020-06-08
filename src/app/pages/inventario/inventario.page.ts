@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { QrDataService } from 'src/app/services/qr-data.service';
 import { InventarioService } from 'src/app/services/inventario.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/models/producto.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-inventario',
@@ -14,7 +15,8 @@ export class InventarioPage implements OnInit {
   titulo = 'Inventario';
 
   productos: Producto[] = [];
-  resultados = []
+  resultados = [];
+  producto = new Producto();
 
   _listFilter: string;
   uid: string;
@@ -31,14 +33,15 @@ export class InventarioPage implements OnInit {
   constructor(
     public qrDataService: QrDataService,
     private inventarioService: InventarioService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private firestore: AngularFirestore,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
     this.inventarioService.obtenerProductos().subscribe(productos => {
-      this.resultados = productos
+      this.resultados = productos;
       this.productos = this.resultados;
-      console.log(this.productos);
     });
   }
 
@@ -53,32 +56,39 @@ export class InventarioPage implements OnInit {
   }
 
   async presentAlertPrompt(producto: Producto) {
+    this.producto = producto;
     const alert = await this.alertController.create({
-      header: 'Registro de nuevo producto',
+      header: 'Actualizar datos de producto',
       inputs: [
         {
-          name: 'name',
+          name: 'nombre',
           type: 'text',
           placeholder: 'Nombre del producto',
           value: producto.nombre
         },
         {
-          name: 'category',
+          name: 'descripcion',
           type: 'text',
-          placeholder: 'Categoria del producto',
+          placeholder: 'Descripcion del producto',
           value: producto.descripcion
         },
         {
-          name: 'brand',
+          name: 'marca',
           type: 'text',
           placeholder: 'Marca del producto',
           value: producto.marca
         },
         {
-          name: 'barcode',
+          name: 'precio',
           type: 'text',
-          placeholder: 'Codigo del producto',
+          placeholder: 'Precio del producto',
           value: producto.precio
+        },
+        {
+          name: 'imagenUrl',
+          type: 'text',
+          placeholder: 'URL de imagen a mostrar',
+          value: producto.imagenUrl
         }
       ],
       buttons: [
@@ -87,17 +97,44 @@ export class InventarioPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
-          handler: (value) => {
+          handler: (producto) => {
+            this.firestore.collection('Productos').doc(this.producto.id).update({
+              nombre: producto.nombre,
+              precio: producto.precio,
+              marca: producto.marca,
+              descripcion: producto.descripcion,
+              imagenUrl: producto.imagenUrl
+            }).then(() => {
+              this.presentToastWithOptions();
+            });
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+
+  async presentToastWithOptions() {
+
+    const toast = await this.toastController.create({
+      header: 'Inventario',
+      message: 'Datos de producto actualizados',
+      position: 'bottom',
+      duration: 4000,
+      color: 'success',
+      buttons: [
+        {
+          side: 'start',
+          icon: 'checkmark-outline',
+        }
+      ]
+    });
+    toast.present();
   }
 
 }

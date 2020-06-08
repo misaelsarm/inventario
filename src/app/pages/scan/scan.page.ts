@@ -31,8 +31,7 @@ export class ScanPage {
         this.presentAlertPrompt(barcodeData.format, data);
       }
     }).catch(err => {
-      console.log(err);
-      const datos = {
+      /* const datos = {
         nombre: 'Martillo',
         descripcion: `Lorem Ipsum is simply dummy text of the printing`,
         precio: 129,
@@ -40,8 +39,7 @@ export class ScanPage {
         imagenUrl: ''
       };
       this.qrDataService.obtenerDatosQR('QR', datos);
-      console.log('Guardado!');
-      this.presentAlertPrompt('QR', datos);
+      this.presentAlertPrompt('QR', datos); */
     });
   }
 
@@ -86,10 +84,10 @@ export class ScanPage {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
+          // tslint:disable-next-line: no-shadowed-variable
           handler: (producto: Producto) => {
             const date = new Date();
             const registro: Producto = {

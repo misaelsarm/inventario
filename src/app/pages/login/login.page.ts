@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
   }
 
   login(form: NgForm) {
-    console.log(form)
     if (form.invalid) {
       return;
     }
@@ -29,7 +28,6 @@ export class LoginPage implements OnInit {
       const user = this.firestore.collection('Users').doc(cred.user.uid);
       user.get().toPromise().then((doc) => {
         const data = doc.data();
-
         Swal.fire({
           text: `Bienvenido ${data.nombreCompleto}`,
           icon: 'success',
@@ -39,7 +37,6 @@ export class LoginPage implements OnInit {
         });
       });
     }).catch((err) => {
-      console.log(err);
       if (err.code === 'auth/user-not-found') {
         Swal.fire({
           title: 'Error',

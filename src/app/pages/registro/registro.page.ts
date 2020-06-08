@@ -21,12 +21,10 @@ export class RegistroPage implements OnInit {
   }
 
   registro(form: NgForm) {
-    console.log(form);
     if (form.invalid) {
       return;
     }
     this.auth.nuevoUsuario(this.usuario).then((cred) => {
-      console.log(cred);
       const date = new Date();
       const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
       const months = [
@@ -93,7 +91,6 @@ export class RegistroPage implements OnInit {
         this.router.navigateByUrl('/tabs/inicio');
       });
     }).catch((err) => {
-      console.log(err);
       if (err.code === 'auth/email-already-in-use') {
         Swal.fire({
           title: 'Error',

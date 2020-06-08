@@ -25,7 +25,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.authService.currentUser().subscribe((user) => {
-      console.log(user);
       if (user) {
         const document = this.firestore.collection('Users').doc(user.uid);
         document.get().subscribe((doc) => {

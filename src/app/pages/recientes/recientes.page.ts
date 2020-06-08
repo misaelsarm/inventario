@@ -19,6 +19,5 @@ export class RecientesPage {
   }
 
   abrirRegistro(registro: Producto) {
-    console.log(registro);
   }
 }

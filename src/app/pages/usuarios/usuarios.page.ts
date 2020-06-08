@@ -33,9 +33,7 @@ export class UsuariosPage implements OnInit {
     this.inventarioService.obtenerUsuarios().subscribe((usuarios) => {
       this.resultados = usuarios;
       this.usuarios = this.resultados;
-      console.log(this.usuarios);
-    })
-
+    });
   }
 
   buscar(elementoBuscado: string) {
@@ -43,5 +41,4 @@ export class UsuariosPage implements OnInit {
     return this.resultados.filter((usuario) =>
       usuario.nombreCompleto.toLowerCase().indexOf(elementoBuscado) !== -1);
   }
-
 }

@@ -39,7 +39,6 @@ export class PedidosPage implements OnInit {
     this.inventarioService.obtenerPedidos().subscribe((pedidos) => {
       this.resultados = pedidos;
       this.pedidos = this.resultados;
-      console.log(this.pedidos);
       this.pedidos.forEach((orden, index) => {
         const data = [];
         this.firestore.collection('Pedidos').doc(orden.id).collection('Productos').get().toPromise().then(snapshot => {
@@ -54,7 +53,6 @@ export class PedidosPage implements OnInit {
 
   confirmar(pedido) {
     this.accion = 'confirmar';
-    console.log(this.accion);
     this.presentAlertConfirm(pedido);
   }
 
